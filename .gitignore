@@ -1,0 +1,9 @@
+# ignore directories
+node_modules/
+build/
+dist/
+.idea/
+.temp/
+
+# ignore files
+.DS_Store
