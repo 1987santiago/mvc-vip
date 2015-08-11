@@ -1,0 +1,13 @@
+/* Item */
+.item {}
+
+/* Gallery */
+.gallery {}
+.gallery-picture {
+    list-style: none;
+}
+
+/* Price */
+.price {
+    font-size: 42px;
+}

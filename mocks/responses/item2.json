@@ -1,0 +1,19 @@
+{
+    "adress": "Basualdo 254",
+    "categoryId": null,
+    "condition": "usado",
+    "id": 2,
+    "permalink": "httpAlgo..",
+    "pictures": [
+        {
+            "url": "http://mla-d1-p.mlstatic.com/581501-MLA20332871694_072015-P.webp",
+            "title": "Title image x"
+        },
+        {
+            "url": "http://mla-d1-p.mlstatic.com/581501-MLA20332871694_072015-P.webp",
+            "title": "Title image x2"
+        }
+    ],
+    "price": 1099,
+    "title": "item Title"
+}

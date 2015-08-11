@@ -1,0 +1,14 @@
+<h3>Información de pago</h3>
+{{item.title}}
+{{#if payment.selected_quantity}}
+<p>{{payment.selected_quantity}} cuotas de ${{payment.selected_price}} pagando con 
+    {{#if payment.selected_card}}
+        {{payment.selected_card.name}}</p>
+    {{else}}
+        </p>
+    {{/if}}
+{{else}}
+    <p>{{payment.default_installments_quantity}} cuotas de ${{payment.default_installments_price}}</p>
+{{/if}}
+<a href="#" id="openPaymentCalculator">Calcular</a>
+<div id="paymentCalculator"></div>

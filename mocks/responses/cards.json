@@ -1,0 +1,77 @@
+[
+    {
+        "name": "Visa",
+        "id": "01",
+        "logo": {
+            "small": "http://www.asla.co.uk/wp-content/uploads/2012/07/visa.png",
+            "medium": "",
+            "large": ""
+        },
+        "installments": [{
+                "qty": 18,
+                "interests": 1.4 
+            },{
+                "qty": 12,
+                "interests": 1.2 
+            },{
+                "qty": 6,
+                "interests": 1.1
+            },{
+                "qty": 3,
+                "interests": 1.05
+            },{
+                "qty": 2,
+                "interests": 1.01
+            },{
+                "qty": 1,
+                "interests": 1
+        }]
+    },
+    {
+        "name": "MasterCard",
+        "id": "02",
+        "logo": {
+            "small": "http://posicionamexico.com/images/mastercard-50x38.png",
+            "medium": "",
+            "large": ""
+        },
+        "installments": [{
+                "qty": 12,
+                "interests": 1.2 
+            },{
+                "qty": 6,
+                "interests": 1.1
+            },{
+                "qty": 3,
+                "interests": 1.05
+            },{
+                "qty": 2,
+                "interests": 1.01
+            },{
+                "qty": 1,
+                "interests": 1
+        }]
+    },
+    {
+        "name": "American Express",
+        "id": "03",
+        "logo": {
+            "small": "http://www.castle4x4.co.uk/wp-content/themes/gopress/images/american-express-logo.png",
+            "medium": "",
+            "large": ""
+        },
+        "installments": [{
+                "qty": 6,
+                "interests": 1.2
+            },{
+                "qty": 3,
+                "interests": 1.1
+            },{
+                "qty": 2,
+                "interests": 1.05
+            },{
+                "qty": 1,
+                "interests": 1
+        }]
+    }
+]

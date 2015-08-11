@@ -1,0 +1,7 @@
+<h3>Calculador de pagos:</h3>
+<form id="paymentCalculator">
+    {{> cards paymethods=paymethods}}
+    {{> installments }}
+    <span id="installmentsPrice"></span>
+    <input id="acceptPaymentCalculate" type="submit" value="Aceptar" />
+</form>

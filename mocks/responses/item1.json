@@ -1,0 +1,15 @@
+{
+    "adress": "Av. Siempre Viva 1234",
+    "categoryId": null,
+    "condition": "nuevo",
+    "id": 1,
+    "permalink": "httpAlgo..",
+    "pictures": [
+        {
+            "url": "http://mla-d1-p.mlstatic.com/581501-MLA20332871694_072015-P.webp",
+            "title": "Title image x"
+        }
+    ],
+    "price": 999,
+    "title": "Item del super agente"
+}

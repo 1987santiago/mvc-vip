@@ -1,0 +1,8 @@
+{
+    "installments_quantity_default": 12,
+    "selected_paymethod": {
+        "card_id": "id",
+        "card_name": "name",
+        "installments": [{},{},{}]
+    }
+}

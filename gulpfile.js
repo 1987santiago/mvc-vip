@@ -3,8 +3,9 @@ var path = require('path'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     handlebars = require('gulp-handlebars'),
-    wrap = require('gulp-wrap'),
+    runSequence = require('run-sequence'),
     declare = require('gulp-declare'),
+    wrap = require('gulp-wrap'),
     sass = require('gulp-sass'),
     size = require('gulp-size'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -19,14 +20,14 @@ var path = require('path'),
         'build':{
             'styles': './build/styles/',
             'scripts': './build/javascripts/',
-            'tmpl': './build/tmpl/',
+            'templates': './build/templates/',
             'images': './build/images/',
             'fonts': './build/fonts/'
         },
         'dist':{
             'styles': './dist/styles/',
             'scripts': './dist/javascripts/',
-            'tmpl': './dist/tmpl/',
+            'templates': './dist/templates/',
             'images': './dist/images/',
             'fonts': './dist/fonts/'
         }
@@ -46,6 +47,10 @@ var path = require('path'),
             'vipMobile': merge(assets.default.mobile.css, assets.vip.mobile.css),
             'vipDesktop': merge(assets.default.desktop.css, assets.vip.desktop.css)
         },
+        images: {
+            'vipMobile': merge(assets.default.mobile.images, assets.vip.mobile.images),
+            'vipDesktop': merge(assets.default.desktop.images, assets.vip.desktop.images)
+        },
         tmpl: {
             'vipMobile': assets.vip.mobile.tmpl,
             'vipDesktop': assets.vip.desktop.tmpl
@@ -55,7 +60,7 @@ var path = require('path'),
 /**
  * Tasks config
  */
-gulp.task('tmplBuild', function(){
+gulp.task('templates', function() {
     gulp.src('./app/templates/*.hbs')
         .pipe(handlebars())
         .pipe(wrap('Handlebars.template(<%= contents %>)'))
@@ -63,16 +68,27 @@ gulp.task('tmplBuild', function(){
             namespace: '__templates',
             noRedeclare: true, // Avoid duplicate declarations 
         }))
-        .pipe(concat('Tmpl.js'))
-        .pipe(gulp.dest(src.build.tmpl));
+        .pipe(concat('templates.js'))
+        .pipe(gulp.dest(src.build.templates));
 });
 
 gulp.task('images', function() {
-    return gulp.src('./app/assets/images/*')
+    Object.keys(bundles.images).forEach(function(bundle) {
+        return gulp.src(bundles.images[bundle])
+            .pipe(imagemin({
+                progressive: true
+            }))
+            .pipe(gulp.dest(src.build.images))
+            .pipe(gulp.dest(src.dist.images));
+    });
+});
+
+gulp.task('navigation-images', function() {
+    return gulp.src(['./node_modules/Navigation/dist/mercadolibre/*.png', './node_modules/Navigation/dist/mercadolibre/*.ico'])
         .pipe(imagemin({
             progressive: true
         }))
-        .pipe(gulp.dest(src.build.images))
+        .pipe(gulp.dest('./build/styles/'))
         .pipe(gulp.dest(src.dist.images));
 });
 
@@ -129,13 +145,20 @@ gulp.task('cssDist', function() {
 });
 
 
-gulp.task('build', ['jsBuild', 'cssBuild', 'fonts', 'images']);
+gulp.task('build', ['templates'], function() {
+    return setTimeout(function(){
+        runSequence(
+            ['fonts', 'images', 'navigation-images'],
+            ['jsBuild', 'cssBuild']
+        );
+    },100);
+});
 gulp.task('dist', ['jsDist', 'cssDist', 'fonts', 'images']);
 
 
 gulp.task('watch', function() {
-    gulp.start('build')
-    gulp.watch(['./app/styles/**/*.+(scss|css)'], ['cssBuild'])
+    gulp.watch(['./app/templates/*.hbs'], ['templates', 'jsBuild'])
     gulp.watch(['./app/assets/images/*'], ['images'])
-    gulp.watch(['./app/**/*.js', 'gulpfile.js'], ['jsBuild'])
+    gulp.watch(['./app/styles/*.css'], ['cssBuild'])
+    gulp.watch(['./config/*.js', './app/**/*.js', 'gulpfile.js'], ['jsBuild'])
 });

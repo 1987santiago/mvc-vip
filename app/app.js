@@ -1,7 +1,7 @@
 Vip = {
-    collections: {},
-    models: {},
-    router: undefined,
-    utils: {},
-    views: {}
+    Collections: {},
+    Models: {},
+    Utils: {},
+    Views: {},
+    Cache: {}
 };

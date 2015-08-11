@@ -5,18 +5,27 @@ var mobile,
 
 mobile = {
     'js': [
-        './app/views/*.js'
+        './app/utils/*.js',
+        './app/models/*.js',
+        './app/collections/*.js',
+        './app/views/*.js',
+        './app/router.js',
+        './mocks/**/*.js'
     ],
     'css': [
-        './app/styles/**/*.scss'
+        './app/styles/*.css'
     ],
-    'tmpl': []
+    'tmpl': [
+        './app/templates/*.hbs'
+    ],
+    'images': []
 };
 
 desktop = {
     'js': [],
     'css': [],
-    'tmpl': []
+    'tmpl': [],
+    'images': []
 };
 
 /*
