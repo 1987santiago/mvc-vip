@@ -1,5 +1,6 @@
 [
     {
+        "selected": true,
         "name": "Visa",
         "id": "01",
         "logo": {
@@ -28,6 +29,7 @@
         }]
     },
     {
+        "selected": false,
         "name": "MasterCard",
         "id": "02",
         "logo": {
@@ -53,6 +55,7 @@
         }]
     },
     {
+        "selected": false,
         "name": "American Express",
         "id": "03",
         "logo": {

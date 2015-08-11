@@ -4,27 +4,31 @@ $.mockjax({
     proxy: '/mocks/responses/item1.json'
 });
 $.mockjax({
-    url: '/item/2', // url donde busca la data
+    url: '/item/2',
     proxyType: "GET",
     proxy: '/mocks/responses/item2.json'
 });
 
 $.mockjax({
-    url: '/payment', // url donde busca la data
+    url: '/payment',
     proxyType: "GET",
     proxy: '/mocks/responses/payment.json'
 });
 
 $.mockjax({
-    url: '/cards', // url donde busca la data
+    url: '/cards',
     proxyType: "GET",
     proxy: '/mocks/responses/cards.json'
 });
 
 $.mockjax({
-    url: '/shipment', // url donde busca la data
-    proxyType: "GET",
-    proxy: '/mocks/responses/shipment.json'
+    url: '/card/01',
+    proxyType: "PUT"
+});
+
+$.mockjax({
+    url: '/card/02',
+    proxyType: "PUT"
 });
 
 // Disable Mocks

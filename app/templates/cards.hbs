@@ -1,6 +1,10 @@
 <label>Elige Tarjeta:</label>
 <select id="card">
     {{#each paymethods}}
-    <option value="{{id}}">{{name}}</option>
+        {{#if selected}}
+            <option value="{{id}}" selected>{{name}}</option>
+        {{else}}
+            <option value="{{id}}">{{name}}</option>
+        {{/if}}
     {{/each}}
 </select>

@@ -1,2 +1,10 @@
 <label>Cuotas:</label>
-<select id="installmentsQuantity"></select>
+<select id="installmentsQuantity">
+    {{#each paymethods}}
+        {{#if selected}}
+            {{#each installments}}
+            <option value="{{qty}}">{{qty}}</option>
+            {{/each}}
+        {{/if}}
+    {{/each}}
+</select>

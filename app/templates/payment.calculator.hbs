@@ -1,7 +1,13 @@
 <h3>Calculador de pagos:</h3>
 <form id="paymentCalculator">
-    {{> cards paymethods=paymethods}}
+    {{> cards }}
+    
     {{> installments }}
-    <span id="installmentsPrice"></span>
+
+    {{#each paymethods}}
+        {{#if selected}}
+            <span id="installmentsPrice">${{selected_installments_price}}</span>
+        {{/if}}
+    {{/each}}
     <input id="acceptPaymentCalculate" type="submit" value="Aceptar" />
 </form>

@@ -3,10 +3,19 @@ Vip.Views.PaymentCalculator = Backbone.View.extend({
     className: 'payment-calculator',
     template: __templates.payment.calculator,
     changedData: {},
+    lastSelected: null,
 
     initialize: function(options) {
+        var that = this;
+
         this.itemModel = options.itemModel;
+        
+        this.collection.on('change', function() {
+            console.log('me cambiaron');
+            that.render();
+        });
         this.render();
+        this.initializeCalculator(18);
     },
 
     render: function() {
@@ -23,47 +32,70 @@ Vip.Views.PaymentCalculator = Backbone.View.extend({
         "click #acceptPaymentCalculate": "changePayMethods",
     },
 
+    initializeCalculator: function(qty) {
+        var selectedInstallments,
+            installmentsPrice;
+
+        this.lastSelected = this.lastSelected || this.collection.get("01");
+
+        _.each(this.lastSelected.get('installments'), function(opt) {
+            if (opt.qty == qty) {
+                selectedInstallments = opt;
+            }
+        });
+
+        installmentsPrice = this.setCalculatedInstallmentsPrice(selectedInstallments);
+        this.lastSelected.set({"selected_installments_price": installmentsPrice});
+        this.lastSelected.save();
+    },
+
     changeCardSelected: function(e) {
-        var paymethodSelected = this.collection.get(e.currentTarget.value).toJSON();
+        var paymethodSelectedModel = this.collection.get(e.currentTarget.value),
+            paymethodSelected = paymethodSelectedModel.toJSON();
+        
         this.changedData['selected_card'] = {
             "id": paymethodSelected.id,
             "name": paymethodSelected.name
         };
-        this.loadInstallmentsOptions(paymethodSelected);
-    },
+        
+        this.lastSelected.set({ "selected": false });
+        this.lastSelected.save();
+    
+        paymethodSelectedModel.set({ "selected": true });
+        paymethodSelectedModel.save();
 
-    loadInstallmentsOptions: function(options) {
-        var $select = this.$('#installmentsQuantity');
-        $select.html('');
-        _.each(options.installments, function(option){
-            $select.append('<option value="' + option.qty + '">' + option.qty + '</option>');
-        });
+        // Guardamos el item como ultimo seleccionado
+        this.lastSelected = paymethodSelectedModel;
+
+        console.log('paymethodSelected.installments[0].qty', paymethodSelected.installments[0].qty);
+        this.initializeCalculator(paymethodSelected.installments[0].qty);
     },
 
     changeInstallmentsSelected: function(e) {
-        var price = this.calculateInstallmentsPrice(e.currentTarget.value);
-        this.changedData['selected_quantity'] = e.currentTarget.value;
-        this.changedData['selected_price'] = price;
-        this.updateInstallmentsPrice(price);
+        // obtener el medio de pago seleccionado
+        var selectedPaymethodInstallments = this.lastSelected.get('installments'),
+            selectedInstallments,
+            installmentsPrice;
+
+        _.each(this.lastSelected.get('installments'), function(opt) {
+            if (opt.qty == e.currentTarget.value) {
+                selectedInstallments = opt;
+            }
+        });
+
+        // calcular el precio por cuota
+        installmentsPrice = this.itemModel.get('price') / selectedInstallments.qty * selectedInstallments.interests;
+        installmentsPrice = parseFloat(installmentsPrice).toFixed(2);
+
+        this.lastSelected.set({"selected_installments_price": installmentsPrice});
+        this.lastSelected.save();
+
+        this.changedData['selected_quantity'] = selectedInstallments.qty;
+        this.changedData['selected_price'] = installmentsPrice;
     },
 
-    calculateInstallmentsPrice: function(num) {
-        var price = this.itemModel.get('price'),
-            cardData = this.collection.get($('#card').val()).toJSON(),
-            installments = cardData.installments,
-            fee = _.find(installments, function(data) { 
-                return data.qty === +num; 
-            }),
-            interests = fee.interests;
-
-        price = price / +num * interests;
-        price = parseFloat(price).toFixed(2);
-
-        return price;
-    },
-
-    updateInstallmentsPrice: function(price) {
-        $('#installmentsPrice').html('$' + price);
+    setCalculatedInstallmentsPrice: function(installmentsData) {
+        return parseFloat(this.itemModel.get('price') / installmentsData.qty * installmentsData.interests).toFixed(2);
     },
 
     changePayMethods: function(e) {
