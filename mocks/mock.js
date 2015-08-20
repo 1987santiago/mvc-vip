@@ -1,24 +1,24 @@
 $.mockjax({
     url: '/item/1', // url donde busca la data
     proxyType: "GET",
-    proxy: './mvc-vip/mocks/responses/item1.json'
+    proxy: './mocks/responses/item1.json'
 });
 $.mockjax({
     url: '/item/2',
     proxyType: "GET",
-    proxy: './mvc-vip/responses/item2.json'
+    proxy: './mocks/responses/item2.json'
 });
 
 $.mockjax({
     url: '/payment',
     proxyType: "GET",
-    proxy: './mvc-vip/responses/payment.json'
+    proxy: './mocks/responses/payment.json'
 });
 
 $.mockjax({
     url: '/cards',
     proxyType: "GET",
-    proxy: './mvc-vip/responses/cards.json'
+    proxy: './mocks/responses/cards.json'
 });
 
 $.mockjax({
