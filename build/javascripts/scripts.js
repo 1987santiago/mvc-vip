@@ -17233,24 +17233,24 @@ $(function(){
 $.mockjax({
     url: '/item/1', // url donde busca la data
     proxyType: "GET",
-    proxy: '/mocks/responses/item1.json'
+    proxy: './mvc-vip/mocks/responses/item1.json'
 });
 $.mockjax({
     url: '/item/2',
     proxyType: "GET",
-    proxy: '/mocks/responses/item2.json'
+    proxy: './mvc-vip/responses/item2.json'
 });
 
 $.mockjax({
     url: '/payment',
     proxyType: "GET",
-    proxy: '/mocks/responses/payment.json'
+    proxy: './mvc-vip/responses/payment.json'
 });
 
 $.mockjax({
     url: '/cards',
     proxyType: "GET",
-    proxy: '/mocks/responses/cards.json'
+    proxy: './mvc-vip/responses/cards.json'
 });
 
 $.mockjax({
