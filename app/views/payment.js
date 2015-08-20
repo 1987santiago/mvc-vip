@@ -24,10 +24,8 @@ Vip.Views.Payment = Backbone.View.extend({
             });
 
             that.model.save();
-
-            console.log('[[[[[[[[[[this.itemModel]]]]]]]]]]', that.itemModel.toJSON());
-            console.log('[[[[[[[[[[this.model]]]]]]]]]]', that.model.toJSON());
         });
+
         options.itemModel.on('change', function() {
             that.render();
         });

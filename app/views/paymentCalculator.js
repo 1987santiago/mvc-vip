@@ -11,7 +11,6 @@ Vip.Views.PaymentCalculator = Backbone.View.extend({
         this.itemModel = options.itemModel;
         
         this.collection.on('change', function() {
-            console.log('me cambiaron');
             that.render();
         });
         this.render();
@@ -67,7 +66,6 @@ Vip.Views.PaymentCalculator = Backbone.View.extend({
         // Guardamos el item como ultimo seleccionado
         this.lastSelected = paymethodSelectedModel;
 
-        console.log('paymethodSelected.installments[0].qty', paymethodSelected.installments[0].qty);
         this.initializeCalculator(paymethodSelected.installments[0].qty);
     },
 
@@ -101,7 +99,6 @@ Vip.Views.PaymentCalculator = Backbone.View.extend({
     changePayMethods: function(e) {
         e.preventDefault();
 
-        console.log('this.changedData', this.changedData);
         this.model.set(this.changedData);
         this.model.save();
 
